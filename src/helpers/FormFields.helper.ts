@@ -1,4 +1,4 @@
-import { ILoginRequest, IRegisterRequest } from "../models";
+import { ILoginRequest, IRegisterRequest, TAddUser } from "../models";
 
 export interface IRegisterFormData {
   id: number,
@@ -7,8 +7,12 @@ export interface IRegisterFormData {
   value: keyof IRegisterRequest;
 }
 
-export interface ILoginFormData extends IRegisterFormData{
+export interface ILoginFormData extends IRegisterFormData {
   value: keyof ILoginRequest
+}
+
+export interface IAddUserFromData extends IRegisterFormData {
+  value: keyof TAddUser;
 }
 
 export const RegisterFormData: IRegisterFormData[] = [
@@ -23,4 +27,10 @@ export const LoginFormData: ILoginFormData[] = [
   {id: 0, title: "Email", type: "email", value: "email"},
   {id: 1,  title: "Password", type: "password", value: "password"},
 ];
+
+export const addUserFormData: IAddUserFromData[] = [
+  {id: 1, title: "First name", type: "text", value: "first_name"},
+  {id: 2, title: "Last name", type: "text", value: "last_name"},
+  {id: 3, title: "Email", type: "email", value: "email"},
+]
 

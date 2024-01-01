@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
 import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { RegisterFormData } from "../../helpers/FormFields.helper";
+import { useAppDispatch } from "../../store/hoocks";
+import { setUser } from "../../store/reducers/userSlice";
 
 const initialState: IRegisterRequest = {
   first_name: "",
@@ -17,12 +19,14 @@ const initialState: IRegisterRequest = {
 export const RegisterForm: FC = () => {
   const [registerData, setRegisterData] = useState<IRegisterRequest>(initialState);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const { data } = await AuthService.register(registerData);
       localStorage.setItem("data", JSON.stringify(data));
+      dispatch(setUser(data));
       navigate(Path.LOGIN);
     } catch (err) {
       const errMessage = (err as Error).message;
@@ -34,15 +38,15 @@ export const RegisterForm: FC = () => {
     <FormWrapper>
       <Title>Sing up</Title>
       <form onSubmit={(e) => registerHandler(e)}>
-        {RegisterFormData.map(f => (
+        {RegisterFormData.map(i => (
           <Input
-            key={f.id}
-            type={f.type}
-            placeholder={f.title}
-            value={registerData[f.value]}
+            key={i.id}
+            type={i.type}
+            placeholder={i.title}
+            value={registerData[i.value]}
             onChange={e => setRegisterData({
               ...registerData,
-              [f.value]: e.target.value
+              [i.value]: e.target.value
             })}
           />
         ))}
