@@ -5,6 +5,9 @@ import { Path } from "../../constants";
 import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { LoginFormData } from "../../helpers/FormFields.helper";
 import { ILoginRequest } from "../../models";
+import { useAppDispatch, useAppSelector } from "../../store/hoocks";
+import { deleteError } from "../../store/reducers/allUsersSlice";
+import { getAllUsers } from "../../store/selectors/getAllUsers";
 
 
 const initialState: ILoginRequest = {
@@ -14,17 +17,18 @@ const initialState: ILoginRequest = {
 
 export const LoginForm: FC = () => {
   const [loginData, setLoginData] = useState(initialState);
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { error } = useAppSelector(getAllUsers);
+
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const { data } = await AuthService.login(loginData.email, loginData.password);
 
-      if (data) {
-        localStorage.setItem("token", data.token);
-        navigate(Path.HOME);
-      }
+      localStorage.setItem("token", data.token);
+      if (error) dispatch(deleteError());
+      navigate(Path.HOME);
     } catch (err) {
       const errorMessage = (err as Error).message;
       throw new Error(errorMessage);
@@ -35,15 +39,15 @@ export const LoginForm: FC = () => {
     <FormWrapper>
       <Title>Log in</Title>
       <form onSubmit={(e) => loginHandler(e)}>
-        {LoginFormData.map(f => (
+        {LoginFormData.map(i => (
           <Input
-            key={f.id}
-            type={f.type}
-            placeholder={f.title}
-            value={loginData[f.value]}
+            key={i.id}
+            type={i.type}
+            placeholder={i.title}
+            value={loginData[i.value]}
             onChange={e => setLoginData({
               ...loginData,
-              [f.value]: e.target.value
+              [i.value]: e.target.value
             })}
           />
         ))}

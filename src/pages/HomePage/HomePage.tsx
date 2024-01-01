@@ -1,26 +1,35 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/AuthService";
 import { Path } from "../../constants";
-import { Button, Input } from "../../theme/components";
-import { UserItem } from "../../components";
+import { Button } from "../../theme/components";
+import { AddUserForm, UserItem } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../store/hoocks";
-import { getUsers } from "../../store/selectors/getUsers";
-import { addUser, fetchUsers } from "../../store/reducers/usersSlice";
-import { TAddUser } from "../../models";
+import { getAllUsers } from "../../store/selectors/getAllUsers";
+import { fetchUsers } from "../../store/reducers/allUsersSlice";
+import { deleteUserData, setUser } from "../../store/reducers/userSlice";
+import { getUserData } from "../../store/selectors/getUserData";
 
 export const HomePage: FC = () => {
-  const [newUsersData, setNewUsersData] = useState<TAddUser>({first_name: "", last_name: "", email: ""});
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const localData: string | null = localStorage.getItem("data");
+
   const {
-    usersList,
+    usersListData,
     error,
     loading
-  } = useAppSelector(getUsers);
+  } = useAppSelector(getAllUsers);
+  const { userData } = useAppSelector(getUserData);
+  const usersList = usersListData?.data.filter(user => user.id !== userData?.id);
+
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) navigate(Path.LOGIN);
+    if (!localStorage.getItem("token") || error) {
+      navigate(Path.LOGIN);
+    } else if (localData) {
+      dispatch(setUser(JSON.parse(localData)));
+    }
   }, []);
 
   // TODO доработать колличество отображаемых пользователей
@@ -28,62 +37,43 @@ export const HomePage: FC = () => {
     dispatch(fetchUsers({ per_page: 20 }));
   }, [dispatch]);
 
+
   const logoutHandler = () => {
     AuthService.logout();
+    dispatch(deleteUserData());
     navigate(Path.LOGIN);
   };
 
+
   return (
-    <div>
-      Welcome
-      <Button
-        className="secondary"
-        onClick={logoutHandler}
-      >Log out</Button>
-      <div>
-        <h2>Users</h2>
-        {usersList?.data.map(user => (
-          <UserItem
-            key={user.id}
-            id={user.id}
-            first_name={user.first_name}
-            last_name={user.last_name}
-            email={user.email}
-            display_picture={user.display_picture}
-          />
-        ))}
-      </div>
-      {/*TODO переделать форму. Вынести ее  и открывать по клику на кнопку "Добавить"*/}
-      <form onSubmit={() => dispatch(addUser(newUsersData))}>
-        <Input
-          type="text"
-          value={newUsersData?.first_name}
-          onChange={(e) => setNewUsersData({
-            ...newUsersData,
-            first_name: e.target.value
-          })}
-          placeholder="Name"
-        />
-        <Input
-          type="text"
-          value={newUsersData?.last_name}
-          onChange={(e) => setNewUsersData({
-            ...newUsersData,
-            last_name: e.target.value,
-          })}
-          placeholder="Last name"
-        />
-        <Input
-          type="email"
-          value={newUsersData?.email}
-          onChange={(e) => setNewUsersData({
-            ...newUsersData,
-            email: e.target.value,
-          })}
-          placeholder="Email"
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </div>
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          Welcome {userData?.first_name} {userData?.last_name}
+          <Button
+            className="secondary"
+            onClick={logoutHandler}
+          >Log out</Button>
+          <div>
+            <h2>Users</h2>
+            {usersList?.length ?
+              usersList.map(user => (
+                <UserItem
+                  key={user.id}
+                  id={user.id}
+                  first_name={user.first_name}
+                  last_name={user.last_name}
+                  email={user.email}
+                  display_picture={user.display_picture}
+                />
+              )) : <Button className="secondary">Add user</Button>
+            }
+          </div>
+          <AddUserForm />
+        </div>
+      )}
+    </>
   );
 };

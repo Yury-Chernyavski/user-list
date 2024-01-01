@@ -3,7 +3,7 @@ import { UserItemStyle } from "./UserItem.style";
 import { IUser } from "../../models";
 import { Button } from "../../theme/components";
 import { useAppDispatch } from "../../store/hoocks";
-import { deleteUser } from "../../store/reducers/usersSlice";
+import { deleteUser } from "../../store/reducers/allUsersSlice";
 
 export const UserItem: FC<IUser> = ({
   id,
