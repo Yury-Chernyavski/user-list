@@ -25,5 +25,5 @@ export const UserItemStyle = styled.div`
     height: 60px;
   }
   
-  @media 
+  //@media 
 `
