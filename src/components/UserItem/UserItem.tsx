@@ -30,7 +30,7 @@ export const UserItem: FC<IUser> = ({
         className="picture"
         src={display_picture}
       />
-      <p>{first_name} {last_name}</p>
+      <p className="title">{first_name} {last_name}</p>
       <p>{email}</p>
       <Button onClick={() => deletedHandler(id)}>Delete</Button>
     </UserItemStyle>

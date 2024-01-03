@@ -3,8 +3,8 @@ import { theme } from "../../theme/theme";
 
 export const AddUserFromStyles = styled.div`
   position: absolute;
-  top: 70px;
-  right: 0;
+  top: 80px;
+  left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -30,7 +30,6 @@ export const HomePage: FC = () => {
     }
   }, []);
 
-  // TODO доработать колличество отображаемых пользователей
   useEffect(() => {
     dispatch(fetchUsers({ per_page: 20 }));
   }, [dispatch]);

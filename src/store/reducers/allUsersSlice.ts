@@ -17,9 +17,9 @@ const initialState: IUsersState = {
 
 export const fetchUsers = createAsyncThunk<IAllUsers, { per_page?: number, page?: number }, { rejectValue: string }>(
   "users/fetch",
-  async function ({ per_page }, { rejectWithValue }) {
+  async function ({ per_page, page }, { rejectWithValue }) {
     try {
-      const response = await UsersService.getAllUsers(per_page);
+      const response = await UsersService.getAllUsers(per_page, page);
       return response.data;
     } catch (err) {
       const errorMessage = (err as Error).message;
