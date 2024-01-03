@@ -19,6 +19,7 @@ interface IAddUserForm {
 
 export const AddUserForm: FC<IAddUserForm> = ({ setAddUserIsOpen }) => {
   const dispatch = useAppDispatch();
+
   const [newUsersData, setNewUsersData] = useState<TAddUser>(initialState);
 
   const addUserHandle = (e: FormEvent<HTMLFormElement>) => {
