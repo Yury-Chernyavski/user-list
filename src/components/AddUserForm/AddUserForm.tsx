@@ -5,17 +5,33 @@ import { useAppDispatch } from "../../store/hoocks";
 import { TAddUser } from "../../models";
 import { addUserFormData } from "../../helpers/FormFields.helper";
 import { AddUserFromStyles } from "./AddUserFrom.styles.";
+import { MdOutlineClose } from "react-icons/md";
 
-export const AddUserForm: FC = () => {
+const initialState: TAddUser = {
+  first_name: "",
+  last_name: "",
+  email: ""
+};
+
+interface IAddUserForm {
+  setAddUserIsOpen: (isOpen: boolean) => void;
+}
+
+export const AddUserForm: FC<IAddUserForm> = ({ setAddUserIsOpen }) => {
   const dispatch = useAppDispatch();
-
   const [newUsersData, setNewUsersData] = useState<TAddUser>(initialState);
 
   const addUserHandle = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addUser(newUsersData));
-    setNewUsersData(initialState)
+
+    if (newUsersData.first_name.length && newUsersData.last_name.length &&
+      newUsersData.email.length) {
+      dispatch(addUser(newUsersData));
+      setNewUsersData(initialState);
+      setAddUserIsOpen(false);
+    }
   };
+
 
   return (
     <AddUserFromStyles>
@@ -34,15 +50,16 @@ export const AddUserForm: FC = () => {
               placeholder={i.title}
             />
           ))}
-          <Button type="submit">Submit</Button>
+          <Button
+            className="primary"
+            type="submit"
+          >Submit</Button>
         </form>
       </FormWrapper>
+      <MdOutlineClose
+        size="25"
+        onClick={() => setAddUserIsOpen(false)}
+      />
     </AddUserFromStyles>
-);
+  );
 };
-
-const initialState: TAddUser = {
-  first_name: "",
-  last_name: "",
-  email: ""
-}

@@ -27,6 +27,7 @@ export const UserItem: FC<IUser> = ({
     <UserItemStyle>
       <img
         alt="profile"
+        className="picture"
         src={display_picture}
       />
       <p>{first_name} {last_name}</p>

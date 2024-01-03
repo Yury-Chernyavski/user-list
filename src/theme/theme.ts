@@ -1,11 +1,9 @@
 export const theme = {
   colors: {
-    primary: "#6B7EEC",
-    darkPrimary: "#6674d5",
-    secondary: "#E95121",
-    white: "white",
-    darkGrey: "#ADAEB8",
-    lightGrey: "#E2E3E9",
-    text: "#2F313F"
+    primary: "#E95121",
+    secondary: "#c0481f",
+    darkBlack: "#1f1f1f",
+    lightBlack: "#242424",
+    text: "#d8d8d8"
   },
 }

@@ -9,12 +9,12 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    background-color: ${theme.colors.lightGrey};
+    background-color: ${theme.colors.darkBlack};
     font-family: Inter, sans-serif;
     font-size: 16px;
     line-height: 1.2em;
     font-weight: 400;
-    color: #2F313F;
+    color: ${theme.colors.text};
   }
   
   a {

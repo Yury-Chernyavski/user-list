@@ -1,15 +1,21 @@
 import styled from "styled-components";
+import { theme } from "../../theme/theme";
 
 export const AddUserFromStyles = styled.div`
-  //position: absolute;
-  //width: 100vw;
-  //height: 100vh;
-  //top: 0;
-  //left: 0;
-  //background-color: rgba(0, 0, 0, 60%);
-  //
-  //
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
-`
+  position: absolute;
+  top: 70px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 60%);
+  
+  & svg {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    fill: ${theme.colors.text};
+    cursor: pointer;
+  }
+`;

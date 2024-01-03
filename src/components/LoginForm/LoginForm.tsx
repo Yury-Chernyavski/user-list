@@ -25,7 +25,6 @@ export const LoginForm: FC = () => {
     e.preventDefault();
     try {
       const { data } = await AuthService.login(loginData.email, loginData.password);
-
       localStorage.setItem("token", data.token);
       if (error) dispatch(deleteError());
       navigate(Path.HOME);
@@ -51,10 +50,7 @@ export const LoginForm: FC = () => {
             })}
           />
         ))}
-        <Button
-          className="primary"
-          type="submit"
-        >Login</Button>
+        <Button className="primary" type="submit">Login</Button>
         <Text>You {"don't"} have an account? <Link to="/register">Sing up</Link></Text>
       </form>
     </FormWrapper>

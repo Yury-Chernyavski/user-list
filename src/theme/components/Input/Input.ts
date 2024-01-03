@@ -7,13 +7,20 @@ export const Input = styled.input`
   border-radius: 10px;
   margin: 10px auto;
   padding: 0 10px;
-  border: 2px solid ${theme.colors.darkGrey};
+  background-color: ${theme.colors.text};
+  border: 2px solid transparent;
+  
   &::placeholder {
-    color: ${theme.colors.darkGrey};
+    color: ${theme.colors.darkBlack};
   }
   
+  &:hover {
+    background-color: white;
+  }
+
   &:focus {
     outline: none;
+    background-color: white;
     border-color: ${theme.colors.primary};
   }
 `
