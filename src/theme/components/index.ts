@@ -4,5 +4,5 @@ export { FormWrapper } from "./FormWrapper/FormWrapper";
 export { Title } from "./Title/Title";
 export { Button } from "./Button/Button";
 export { Text } from "./Text/Text";
-export { HeaderStyles } from "./Header/Header.styles";
+export { HeaderStyles } from "../../components/Header/Header.styles";
 export { Main } from "./Main/Main";

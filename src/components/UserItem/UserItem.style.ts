@@ -26,7 +26,6 @@ export const UserItemStyle = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    flex: 43%;
     grid-template-columns: 1fr;
     grid-template-rows: 100px 1fr 1fr 1fr;
     padding: 20px 40px;

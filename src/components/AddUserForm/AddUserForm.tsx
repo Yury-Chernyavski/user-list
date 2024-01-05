@@ -4,7 +4,6 @@ import { addUser } from "../../store/reducers/allUsersSlice";
 import { useAppDispatch } from "../../store/hoocks";
 import { TAddUser } from "../../models";
 import { addUserFormData } from "../../helpers/FormFields.helper";
-import { AddUserFromStyles } from "./AddUserFrom.styles.";
 import { MdOutlineClose } from "react-icons/md";
 
 const initialState: TAddUser = {
@@ -35,32 +34,30 @@ export const AddUserForm: FC<IAddUserForm> = ({ setAddUserIsOpen }) => {
 
 
   return (
-    <AddUserFromStyles>
-      <FormWrapper>
-        <Title>Add user</Title>
-        <form onSubmit={addUserHandle}>
-          {addUserFormData.map(i => (
-            <Input
-              key={i.id}
-              type={i.type}
-              value={newUsersData?.[i.value]}
-              onChange={(e) => setNewUsersData({
-                ...newUsersData,
-                [i.value]: e.target.value
-              })}
-              placeholder={i.title}
-            />
-          ))}
-          <Button
-            className="primary"
-            type="submit"
-          >Submit</Button>
-        </form>
-      </FormWrapper>
+    <FormWrapper className="addUser">
+      <Title>Add user</Title>
+      <form onSubmit={addUserHandle}>
+        {addUserFormData.map(i => (
+          <Input
+            key={i.id}
+            type={i.type}
+            value={newUsersData?.[i.value]}
+            onChange={(e) => setNewUsersData({
+              ...newUsersData,
+              [i.value]: e.target.value
+            })}
+            placeholder={i.title}
+          />
+        ))}
+        <Button
+          className="primary"
+          type="submit"
+        >Submit</Button>
+      </form>
       <MdOutlineClose
         size="25"
         onClick={() => setAddUserIsOpen(false)}
       />
-    </AddUserFromStyles>
+    </FormWrapper>
   );
 };
