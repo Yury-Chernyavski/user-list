@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../../store/store";
 import { UserItem } from "../UserItem";
@@ -13,27 +13,33 @@ const mockUser = {
 };
 
 describe("Render item of users", () => {
-  it("Render components", async () => {
-    const mockDispatch = jest.fn();
-    jest.spyOn(store, "dispatch").mockImplementation(mockDispatch);
 
+  beforeEach(() => {
+    jest.spyOn(store, "dispatch").mockImplementation(jest.fn());
 
     render(
       <Provider store={store}>
-        <UserItem
-          id={mockUser.id}
-          first_name={mockUser.first_name}
-          last_name={mockUser.last_name}
-          email={mockUser.email}
-          display_picture={mockUser.display_picture}
-        />
+        <UserItem {...mockUser} />
       </Provider>
     );
+  })
+
+  it("Render components", async () => {
+    const mockDispatch = jest.fn();
+    jest.spyOn(store, "dispatch").mockImplementation(mockDispatch);
 
     expect(screen.getByTestId("user-item")).toBeInTheDocument();
     expect(screen.getByText(`${mockUser.first_name} ${mockUser.last_name}`)).toBeInTheDocument();
     expect(screen.getByText(mockUser.email)).toBeInTheDocument();
     expect(screen.getByAltText("profile")).toHaveAttribute("src", mockUser.display_picture);
     expect(screen.getByText("Delete")).toBeInTheDocument();
+  });
+
+  it('calls deletedHandler when delete button is clicked', async () => {
+    fireEvent.click(screen.getByText('Delete'));
+
+    await waitFor(() => {
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+    });
   });
 });
