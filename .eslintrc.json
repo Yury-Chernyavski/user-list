@@ -39,7 +39,6 @@
         "allowSingleExtends": true
       }
     ],
-    "no-console": "warn",
     "@typescript-eslint/no-empty-function": "off"
   }
 }
