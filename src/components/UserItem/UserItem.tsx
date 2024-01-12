@@ -2,7 +2,7 @@ import { FC } from "react";
 import { UserItemStyle } from "./UserItem.style";
 import { IUser } from "../../models";
 import { Button } from "../../theme/components";
-import { useAppDispatch } from "../../store/hoocks";
+import { useAppDispatch } from "../../store/hooks";
 import { deleteUser } from "../../store/reducers/allUsersSlice";
 
 export const UserItem: FC<IUser> = ({
@@ -24,7 +24,7 @@ export const UserItem: FC<IUser> = ({
   };
 
   return (
-    <UserItemStyle>
+    <UserItemStyle data-testid="user-item">
       <img
         alt="profile"
         className="picture"

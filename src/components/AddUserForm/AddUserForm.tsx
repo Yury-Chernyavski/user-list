@@ -1,7 +1,7 @@
 import React, { FC, FormEvent, useState } from "react";
 import { Button, FormWrapper, Input, Title } from "../../theme/components";
 import { addUser } from "../../store/reducers/allUsersSlice";
-import { useAppDispatch } from "../../store/hoocks";
+import { useAppDispatch } from "../../store/hooks";
 import { TAddUser } from "../../models";
 import { addUserFormData } from "../../helpers/FormFields.helper";
 import { MdOutlineClose } from "react-icons/md";
@@ -34,7 +34,7 @@ export const AddUserForm: FC<IAddUserForm> = ({ setAddUserIsOpen }) => {
 
 
   return (
-    <FormWrapper className="addUser">
+    <FormWrapper className="addUser" data-testid="addUserForm">
       <Title>Add user</Title>
       <form onSubmit={addUserHandle}>
         {addUserFormData.map(i => (
@@ -56,6 +56,7 @@ export const AddUserForm: FC<IAddUserForm> = ({ setAddUserIsOpen }) => {
       </form>
       <MdOutlineClose
         size="25"
+        data-testid="close"
         onClick={() => setAddUserIsOpen(false)}
       />
     </FormWrapper>

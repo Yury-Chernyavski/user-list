@@ -15,12 +15,17 @@ const initialState: IUsersState = {
   error: null
 };
 
-export const fetchUsers = createAsyncThunk<IAllUsers, { per_page?: number, page?: number }, { rejectValue: string }>(
+export const fetchUsers = createAsyncThunk<IAllUsers, { per_page?: number, page?: number } | undefined, { rejectValue: string }>(
   "users/fetch",
-  async function ({ per_page, page }, { rejectWithValue }) {
+  async function (queryParams, { rejectWithValue }) {
     try {
-      const response = await UsersService.getAllUsers(per_page, page);
-      return response.data;
+      if (queryParams && (queryParams.page || queryParams.per_page)) {
+        const response = await UsersService.getAllUsers(queryParams.per_page, queryParams.page);
+        return response.data;
+      } else {
+        const response = await UsersService.getAllUsers();
+        return response.data;
+      }
     } catch (err) {
       const errorMessage = (err as Error).message;
       return rejectWithValue(errorMessage);
@@ -32,7 +37,6 @@ export const addUser = createAsyncThunk<IUser, TAddUser, { rejectValue: string }
   "users/add",
   async function (newUser, { rejectWithValue }) {
     try {
-      // const response = await axios.post<IUser>(`${process.env.REACT_APP_API_URL}${Path.USERS}`, newUser);
       const response = await UsersService.addUser(newUser);
       return response.data;
     } catch (err) {

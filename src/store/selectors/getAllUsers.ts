@@ -1,3 +1,3 @@
-import { RootSate } from "../store";
+import { RootState } from "../store";
 
-export const getAllUsers = (state: RootSate) => state.users;
+export const getAllUsers = (state: RootState) => state.users;

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
 import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { RegisterFormData } from "../../helpers/FormFields.helper";
-import { useAppDispatch } from "../../store/hoocks";
+import { useAppDispatch } from "../../store/hooks";
 import { setUser } from "../../store/reducers/userSlice";
 
 const initialState: IRegisterRequest = {
