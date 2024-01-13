@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
 import { Main } from "../../theme/components";
 import { Header, MainHeader, UserItem } from "../../components";
-import { useAppDispatch, useAppSelector } from "../../store/hoocks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getAllUsers } from "../../store/selectors/getAllUsers";
 import { fetchUsers } from "../../store/reducers/allUsersSlice";
 import { setUser } from "../../store/reducers/userSlice";
@@ -16,7 +16,7 @@ export const HomePage: FC = () => {
 
   const {
     usersListData,
-    error,
+    error
   } = useAppSelector(getAllUsers);
   const { userData } = useAppSelector(getUserData);
   const usersList = usersListData?.data.filter(user => user.id !== userData?.id);
@@ -42,11 +42,7 @@ export const HomePage: FC = () => {
         {usersList?.map(user => (
           <UserItem
             key={user.id}
-            id={user.id}
-            first_name={user.first_name}
-            last_name={user.last_name}
-            email={user.email}
-            display_picture={user.display_picture}
+            {...user}
           />
         ))}
       </Main>

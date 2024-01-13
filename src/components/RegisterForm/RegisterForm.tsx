@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
 import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { RegisterFormData } from "../../helpers/FormFields.helper";
-import { useAppDispatch } from "../../store/hoocks";
+import { useAppDispatch } from "../../store/hooks";
 import { setUser } from "../../store/reducers/userSlice";
 
 const initialState: IRegisterRequest = {
@@ -18,8 +18,10 @@ const initialState: IRegisterRequest = {
 
 export const RegisterForm: FC = () => {
   const [registerData, setRegisterData] = useState<IRegisterRequest>(initialState);
+  const [registerErr, setRegisterErr] = useState("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
 
   const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,17 +29,22 @@ export const RegisterForm: FC = () => {
       const { data } = await AuthService.register(registerData);
       localStorage.setItem("data", JSON.stringify(data));
       dispatch(setUser(data));
+      if(registerErr) setRegisterErr("")
       navigate(Path.LOGIN);
     } catch (err) {
       const errMessage = (err as Error).message;
-      throw new Error(errMessage);
+      console.error(errMessage);
+      setRegisterErr("Register failed")
     }
   };
 
   return (
     <FormWrapper>
       <Title>Sing up</Title>
-      <form onSubmit={(e) => registerHandler(e)}>
+      <form
+        onSubmit={(e) => registerHandler(e)}
+        data-testid="Register-form"
+      >
         {RegisterFormData.map(i => (
           <Input
             key={i.id}
@@ -57,6 +64,7 @@ export const RegisterForm: FC = () => {
       </form>
       <Text>Already have an account? <Link to="/login">Log in</Link>
       </Text>
+      {registerErr && <div>{registerErr}</div>}
     </FormWrapper>
   );
 };

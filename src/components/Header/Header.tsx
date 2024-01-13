@@ -3,7 +3,7 @@ import { Button, HeaderStyles, Text } from "../../theme/components";
 import AuthService from "../../services/AuthService";
 import { deleteUserData } from "../../store/reducers/userSlice";
 import { Path } from "../../constants";
-import { useAppDispatch } from "../../store/hoocks";
+import { useAppDispatch } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../models";
 import { AddUserForm } from "../AddUserForm/AddUserForm";
@@ -28,6 +28,7 @@ export const Header: FC<IHeader> = ({ userData }: IHeader) => {
     <HeaderStyles>
       <Button
         className="primary"
+        data-testid="addUserButton"
         onClick={() => setAddUserIsOpen(true)}
       >Add user</Button>
       {addUserIsOpen && <AddUserForm setAddUserIsOpen={setAddUserIsOpen} />}
@@ -40,7 +41,7 @@ export const Header: FC<IHeader> = ({ userData }: IHeader) => {
         <Text className="headerTitle">{userData?.first_name} {userData?.last_name}</Text>
         <Button
           onClick={logoutHandler}
-      >Log out</Button>
+        >Log out</Button>
       </div>
     </HeaderStyles>
   );

@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainHeader Should render the RegisterPage component 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="sc-gswONk kJchHL"
+      >
+        <div
+          class="sc-dkrGBB cvJVRC"
+        >
+          <h1
+            class="sc-hLBatu QoYOU"
+          >
+            Sing up
+          </h1>
+          <form
+            data-testid="Register-form"
+          >
+            <input
+              class="sc-bcXGCL ibUrKg"
+              placeholder="First name"
+              type="text"
+              value=""
+            />
+            <input
+              class="sc-bcXGCL ibUrKg"
+              placeholder="Last name"
+              type="text"
+              value=""
+            />
+            <input
+              class="sc-bcXGCL ibUrKg"
+              placeholder="Email"
+              type="email"
+              value=""
+            />
+            <input
+              class="sc-bcXGCL ibUrKg"
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+            <input
+              class="sc-bcXGCL ibUrKg"
+              placeholder="Password confirmation"
+              type="password"
+              value=""
+            />
+            <button
+              class="sc-eDvShL hKbctB primary"
+              type="submit"
+            >
+              Sing up
+            </button>
+          </form>
+          <p
+            class="sc-jSVask jnHlof"
+          >
+            Already have an account? 
+            <a
+              href="/login"
+            >
+              Log in
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-gswONk kJchHL"
+    >
+      <div
+        class="sc-dkrGBB cvJVRC"
+      >
+        <h1
+          class="sc-hLBatu QoYOU"
+        >
+          Sing up
+        </h1>
+        <form
+          data-testid="Register-form"
+        >
+          <input
+            class="sc-bcXGCL ibUrKg"
+            placeholder="First name"
+            type="text"
+            value=""
+          />
+          <input
+            class="sc-bcXGCL ibUrKg"
+            placeholder="Last name"
+            type="text"
+            value=""
+          />
+          <input
+            class="sc-bcXGCL ibUrKg"
+            placeholder="Email"
+            type="email"
+            value=""
+          />
+          <input
+            class="sc-bcXGCL ibUrKg"
+            placeholder="Password"
+            type="password"
+            value=""
+          />
+          <input
+            class="sc-bcXGCL ibUrKg"
+            placeholder="Password confirmation"
+            type="password"
+            value=""
+          />
+          <button
+            class="sc-eDvShL hKbctB primary"
+            type="submit"
+          >
+            Sing up
+          </button>
+        </form>
+        <p
+          class="sc-jSVask jnHlof"
+        >
+          Already have an account? 
+          <a
+            href="/login"
+          >
+            Log in
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
