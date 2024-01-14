@@ -10,12 +10,13 @@ import { useLocation } from "react-router-dom";
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
-  const { state } = useLocation();
-
+  const mainUserEmail = localStorage.getItem("email");
   const { usersListData } = useAppSelector(getAllUsers);
   const { userData } = useAppSelector(getUserData);
+  const mainUser = usersListData?.data.find(user => user.email === mainUserEmail);
+  console.log(usersListData);
   const usersList = usersListData?.data.filter(user => user.id !== userData?.id);
-  const mainUser = usersListData?.data.find(user => user.email === state.email);
+
   localStorage.setItem("data", JSON.stringify(mainUser));
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export const HomePage: FC = () => {
   }, [mainUser]);
 
   useEffect(() => {
-    dispatch(fetchUsers({ per_page: 20 }));
+    dispatch(fetchUsers({ per_page: 3 }));
   }, [dispatch]);
 
   return (

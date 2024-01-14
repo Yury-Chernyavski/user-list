@@ -1,9 +1,9 @@
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useState, ChangeEvent } from "react";
 import { IRegisterRequest } from "../../models";
 import AuthService from "../../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
-import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
+import { Button, ErrorMessage, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { RegisterFormData } from "../../helpers/FormFields.helper";
 import { useAppDispatch } from "../../store/hooks";
 import { setUser } from "../../store/reducers/userSlice";
@@ -29,12 +29,12 @@ export const RegisterForm: FC = () => {
       const { data } = await AuthService.register(registerData);
       localStorage.setItem("data", JSON.stringify(data));
       dispatch(setUser(data));
-      if(registerErr) setRegisterErr("")
+      if (registerErr) setRegisterErr("");
       navigate(Path.LOGIN);
     } catch (err) {
       const errMessage = (err as Error).message;
       console.error(errMessage);
-      setRegisterErr("Register failed")
+      setRegisterErr("Register failed");
     }
   };
 
@@ -51,7 +51,7 @@ export const RegisterForm: FC = () => {
             type={i.type}
             placeholder={i.title}
             value={registerData[i.value]}
-            onChange={e => setRegisterData({
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setRegisterData({
               ...registerData,
               [i.value]: e.target.value
             })}
@@ -64,7 +64,7 @@ export const RegisterForm: FC = () => {
       </form>
       <Text>Already have an account? <Link to="/login">Log in</Link>
       </Text>
-      {registerErr && <div>{registerErr}</div>}
+      {registerErr && <ErrorMessage>{registerErr}</ErrorMessage>}
     </FormWrapper>
   );
 };

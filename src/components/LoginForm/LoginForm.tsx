@@ -1,8 +1,8 @@
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useState, ChangeEvent } from "react";
 import AuthService from "../../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
-import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
+import { Button, ErrorMessage, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { LoginFormData } from "../../helpers/FormFields.helper";
 import { ILoginRequest } from "../../models";
 
@@ -23,12 +23,9 @@ export const LoginForm: FC = () => {
     try {
       const { data } = await AuthService.login(loginData.email, loginData.password);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("email", loginData.email);
       if (loginErr) setLoginErr("");
-      navigate(Path.HOME, {
-        state: {
-          email: loginData.email
-        }
-      });
+      navigate(Path.HOME);
     } catch (err) {
       const errorMessage = (err as Error).message;
       console.error(errorMessage);
@@ -49,7 +46,7 @@ export const LoginForm: FC = () => {
             type={i.type}
             placeholder={i.title}
             value={loginData[i.value]}
-            onChange={e => setLoginData({
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setLoginData({
               ...loginData,
               [i.value]: e.target.value
             })}
@@ -61,7 +58,7 @@ export const LoginForm: FC = () => {
         >Login</Button>
         <Text>You {"don't"} have an account? <Link to="/register">Sing up</Link></Text>
       </form>
-      {loginErr && <div style={{color: "red"}}>{loginErr}</div>}
+      {loginErr && <ErrorMessage>{loginErr}</ErrorMessage>}
     </FormWrapper>
   );
 };

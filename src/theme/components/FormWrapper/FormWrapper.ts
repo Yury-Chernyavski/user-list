@@ -6,7 +6,7 @@ interface IFromWrapper {
 }
 
 export const FormWrapper = styled.div<IFromWrapper>`
-  width: 45%;
+  width: 35%;
   min-width: 400px;
   min-height: auto;
   height: auto;
@@ -52,7 +52,7 @@ export const FormWrapper = styled.div<IFromWrapper>`
     }
 
     @media screen and (max-width: 768px) {
-
+      width: 50%;
     }
   }
 `;

@@ -6,3 +6,4 @@ export { Button } from "./Button/Button";
 export { Text } from "./Text/Text";
 export { HeaderStyles } from "../../components/Header/Header.styles";
 export { Main } from "./Main/Main";
+export { ErrorMessage } from "./ErrorMessage/ErrorMessage";

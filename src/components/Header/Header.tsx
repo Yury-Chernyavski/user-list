@@ -21,6 +21,7 @@ export const Header: FC<IHeader> = ({ userData }: IHeader) => {
   const logoutHandler = () => {
     AuthService.logout();
     dispatch(deleteUserData());
+    localStorage.removeItem("email");
     navigate(Path.LOGIN);
   };
 
