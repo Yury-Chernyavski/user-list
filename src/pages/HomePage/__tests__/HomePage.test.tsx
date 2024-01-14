@@ -45,11 +45,6 @@ jest.mock("../../../store/reducers/allUsersSlice", () => ({
   fetchUsers: jest.fn()
 }));
 
-// jest.mock("../../../store/reducers/userSlice", () => ({
-//   // ...jest.requireActual("../../../store/reducers/userSlice"),
-//   setUser: jest.fn()
-// }));
-
 
 describe("HomePage", () => {
   beforeEach(() => {

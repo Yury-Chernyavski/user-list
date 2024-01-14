@@ -5,9 +5,6 @@ import { Path } from "../../constants";
 import { Button, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { LoginFormData } from "../../helpers/FormFields.helper";
 import { ILoginRequest } from "../../models";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { deleteError } from "../../store/reducers/allUsersSlice";
-import { getAllUsers } from "../../store/selectors/getAllUsers";
 
 
 const initialState: ILoginRequest = {
@@ -17,22 +14,24 @@ const initialState: ILoginRequest = {
 
 export const LoginForm: FC = () => {
   const [loginData, setLoginData] = useState(initialState);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginErr, setLoginErr] = useState("");
-  const { error } = useAppSelector(getAllUsers);
+
 
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const { data } = await AuthService.login(loginData.email, loginData.password);
       localStorage.setItem("token", data.token);
-      if (error) dispatch(deleteError());
       if (loginErr) setLoginErr("");
-      navigate(Path.HOME);
+      navigate(Path.HOME, {
+        state: {
+          email: loginData.email
+        }
+      });
     } catch (err) {
       const errorMessage = (err as Error).message;
-      console.error(errorMessage)
+      console.error(errorMessage);
       setLoginErr(`Login failed`);
     }
   };
@@ -62,7 +61,7 @@ export const LoginForm: FC = () => {
         >Login</Button>
         <Text>You {"don't"} have an account? <Link to="/register">Sing up</Link></Text>
       </form>
-      {loginErr && <div>{loginErr}</div>}
+      {loginErr && <div style={{color: "red"}}>{loginErr}</div>}
     </FormWrapper>
   );
 };

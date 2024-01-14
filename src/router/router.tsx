@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Path } from "../constants";
 import { HomePage, LoginPage, RegisterPage } from "../pages";
-import PrivateRouter from "./PrivateRouter";
+import { PrivateRouter } from "./PrivateRouter";
 
 export const router = createBrowserRouter([
   {
