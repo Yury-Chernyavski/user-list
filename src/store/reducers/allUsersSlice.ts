@@ -62,11 +62,7 @@ export const deleteUser = createAsyncThunk<number, number, { rejectValue: string
 const allUsersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    deleteError(state) {
-      state.error = null;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -108,5 +104,4 @@ function isError(action: Action) {
   return action.type.endsWith("rejected");
 }
 
-export const { deleteError } = allUsersSlice.actions;
 export default allUsersSlice.reducer;

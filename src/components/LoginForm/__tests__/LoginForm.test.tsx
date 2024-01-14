@@ -11,6 +11,11 @@ const mockData = {
   password: "password123"
 };
 
+const mockError = {
+  email: "This field is required",
+  password: "This field is required"
+};
+
 
 describe("LoginForm", () => {
   beforeEach(() => {
@@ -21,7 +26,7 @@ describe("LoginForm", () => {
         </BrowserRouter>
       </Provider>
     );
-  })
+  });
 
   it("should render login form correctly", () => {
     expect(screen.getByText("Log in")).toBeInTheDocument();
@@ -43,12 +48,17 @@ describe("LoginForm", () => {
   });
 
   it("should handle login failure", async () => {
-    fireEvent.change(screen.getByPlaceholderText("Email"), { target: { value: "test@example.com" } });
-    fireEvent.change(screen.getByPlaceholderText("Password"), { target: { value: "invalidPassword" } });
+    jest.spyOn(AuthService, "login").mockImplementation();
+    // fireEvent.change(screen.getByPlaceholderText("Email"), { target: { value: "" } });
+    // fireEvent.change(screen.getByPlaceholderText("Password"), { target: { value: "" } });
     fireEvent.submit(screen.getByTestId("Login-form"));
 
     await waitFor(() => {
-      expect(screen.getByText("Login failed")).toBeInTheDocument();
+      expect(AuthService.login).toHaveBeenCalledWith(mockData.email, mockData.password);
+    });
+
+    await waitFor(() => {
+      expect(screen.getAllByText("This field is required")).toBeInTheDocument();
     });
   });
 });

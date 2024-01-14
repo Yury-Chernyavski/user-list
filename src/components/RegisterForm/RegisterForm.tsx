@@ -1,5 +1,5 @@
-import { FC, FormEvent, useState, ChangeEvent } from "react";
-import { IRegisterRequest } from "../../models";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { IError, IRegisterRequest } from "../../models";
 import AuthService from "../../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
@@ -8,6 +8,7 @@ import { RegisterFormData } from "../../helpers/FormFields.helper";
 import { useAppDispatch } from "../../store/hooks";
 import { setUser } from "../../store/reducers/userSlice";
 import { AxiosError } from "axios";
+import { checkError } from "../../helpers/checkError";
 
 const initialState: IRegisterRequest = {
   first_name: "",
@@ -19,7 +20,7 @@ const initialState: IRegisterRequest = {
 
 export const RegisterForm: FC = () => {
   const [registerData, setRegisterData] = useState<IRegisterRequest>(initialState);
-  const [registerErr, setRegisterErr] = useState<IRegisterRequest | null>(initialState);
+  const [registerErr, setRegisterErr] = useState<IError>({});
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -29,15 +30,19 @@ export const RegisterForm: FC = () => {
       const { data } = await AuthService.register(registerData);
       localStorage.setItem("data", JSON.stringify(data));
       dispatch(setUser(data));
-      if (registerErr) setRegisterErr(null);
+      if (registerErr) {
+        setRegisterErr({});
+      }
       navigate(Path.LOGIN);
     } catch (err) {
-      if(err instanceof  AxiosError) {
-        const errors = err.response?.data.data.errors;
-        setRegisterErr(errors);
+      if (err instanceof AxiosError) {
+        checkError(err, setRegisterErr)
       }
     }
   };
+
+  console.log(registerErr);
+
 
   return (
     <FormWrapper>
@@ -47,9 +52,8 @@ export const RegisterForm: FC = () => {
         data-testid="Register-form"
       >
         {RegisterFormData.map(i => (
-          <>
+          <div className="itemWrapper" key={i.id}>
             <Input
-              key={i.id}
               type={i.type}
               placeholder={i.title}
               value={registerData[i.value]}
@@ -58,8 +62,8 @@ export const RegisterForm: FC = () => {
                 [i.value]: e.target.value
               })}
             />
-            {registerErr && <ErrorMessage>{registerErr[i.value]}</ErrorMessage>}
-          </>
+            {registerErr.errors && <ErrorMessage>{registerErr.errors[i.value]}</ErrorMessage>}
+          </div>
         ))}
         <Button
           className="primary"
@@ -68,6 +72,7 @@ export const RegisterForm: FC = () => {
       </form>
       <Text>Already have an account? <Link to="/login">Log in</Link>
       </Text>
+      {registerErr.message && <ErrorMessage>{registerErr.message}</ErrorMessage>}
     </FormWrapper>
   );
 };

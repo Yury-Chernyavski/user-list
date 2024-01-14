@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../constants";
 import { Button, ErrorMessage, FormWrapper, Input, Text, Title } from "../../theme/components";
 import { LoginFormData } from "../../helpers/FormFields.helper";
-import { ILoginRequest } from "../../models";
+import { IError, ILoginRequest } from "../../models";
 import { AxiosError } from "axios";
+import { checkError } from "../../helpers/checkError";
 
 
 const initialState: ILoginRequest = {
@@ -15,7 +16,7 @@ const initialState: ILoginRequest = {
 
 export const LoginForm: FC = () => {
   const [loginData, setLoginData] = useState(initialState);
-  const [loginErr, setLoginErr] = useState<ILoginRequest | null>(initialState);
+  const [loginErr, setLoginErr] = useState<IError>({});
   const navigate = useNavigate();
 
 
@@ -24,12 +25,11 @@ export const LoginForm: FC = () => {
     try {
       const { data } = await AuthService.login(loginData.email, loginData.password);
       localStorage.setItem("token", data.token);
-      if (loginErr) setLoginErr(null);
+      if (loginErr) setLoginErr({});
       navigate(Path.HOME);
     } catch (err) {
       if (err instanceof AxiosError) {
-        const errors = err.response?.data.data.errors;
-        setLoginErr(errors);
+        checkError(err, setLoginErr);
       }
     }
   };
@@ -42,9 +42,11 @@ export const LoginForm: FC = () => {
         data-testid="Login-form"
       >
         {LoginFormData.map(i => (
-          <>
+          <div
+            className="itemWrapper"
+            key={i.id}
+          >
             <Input
-              key={i.id}
               type={i.type}
               placeholder={i.title}
               value={loginData[i.value]}
@@ -53,15 +55,16 @@ export const LoginForm: FC = () => {
                 [i.value]: e.target.value
               })}
             />
-            {loginErr && <ErrorMessage>{loginErr[i.value]}</ErrorMessage>}
-          </>
+            {loginErr.errors && <ErrorMessage>{loginErr.errors[i.value]}</ErrorMessage>}
+          </div>
         ))}
         <Button
           className="primary"
           type="submit"
         >Login</Button>
-        <Text>You {"don't"} have an account? <Link to="/register">Sing up</Link></Text>
       </form>
+      <Text>You {"don't"} have an account? <Link to="/register">Sing up</Link></Text>
+      {loginErr.message && <ErrorMessage>{loginErr.message}</ErrorMessage>}
     </FormWrapper>
   );
 };

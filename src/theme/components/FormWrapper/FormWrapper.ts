@@ -6,7 +6,7 @@ interface IFromWrapper {
 }
 
 export const FormWrapper = styled.div<IFromWrapper>`
-  width: 35%;
+  width: 45%;
   min-width: 400px;
   min-height: auto;
   height: auto;
@@ -17,7 +17,7 @@ export const FormWrapper = styled.div<IFromWrapper>`
   align-items: center;
   justify-content: center;
   padding: 45px 30px;
-  
+  margin: 20px 0;
   position: relative;
   
   
@@ -30,6 +30,11 @@ export const FormWrapper = styled.div<IFromWrapper>`
     width: 100%;
     flex-direction: column;
     align-items: center;
+    
+    
+    & .itemWrapper {
+      width: 90%;
+    }
   }
   
   
@@ -49,10 +54,6 @@ export const FormWrapper = styled.div<IFromWrapper>`
       right: 20px;
       fill: ${theme.colors.text};
       cursor: pointer;
-    }
-
-    @media screen and (max-width: 768px) {
-      width: 50%;
     }
   }
 `;
