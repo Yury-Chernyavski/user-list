@@ -10,21 +10,17 @@ import { useLocation } from "react-router-dom";
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
-  const mainUserEmail = localStorage.getItem("email");
+  const mainUser = localStorage.getItem("data");
   const { usersListData } = useAppSelector(getAllUsers);
   const { userData } = useAppSelector(getUserData);
-  const mainUser = usersListData?.data.find(user => user.email === mainUserEmail);
-  console.log(usersListData);
   const usersList = usersListData?.data.filter(user => user.id !== userData?.id);
 
-  localStorage.setItem("data", JSON.stringify(mainUser));
+  useEffect(() => {
+    mainUser && dispatch(setUser(JSON.parse(mainUser)));
+  }, []);
 
   useEffect(() => {
-    dispatch(setUser(mainUser));
-  }, [mainUser]);
-
-  useEffect(() => {
-    dispatch(fetchUsers({ per_page: 3 }));
+    dispatch(fetchUsers({ per_page: 20 }));
   }, [dispatch]);
 
   return (

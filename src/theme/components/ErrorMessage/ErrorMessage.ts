@@ -4,5 +4,5 @@ import { theme } from "../../theme";
 export const ErrorMessage = styled.div`
   color: ${theme.colors.primary};
   font-size: 18px;
-  margin-top: 15px;
+  margin: 5px 0 15px;
 `
