@@ -1,10 +1,7 @@
 import { IRegisterRequest } from "../IRegisterRequest/IRegisterRequest";
 
 export interface IErrorResponse {
-  data: {
-    errors?: IRegisterRequest
-    message?: string;
-  };
+  data: IError;
 }
 
 export interface IError {
