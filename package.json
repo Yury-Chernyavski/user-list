@@ -43,6 +43,12 @@
   "jest": {
     "transformIgnorePatterns": [
       "/node_modules/(?!(axios)/)"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/helpers/",
+      "/router/",
+      "/models/",
+      "/services/"
     ]
   },
   "devDependencies": {

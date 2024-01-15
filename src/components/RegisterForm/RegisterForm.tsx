@@ -41,9 +41,6 @@ export const RegisterForm: FC = () => {
     }
   };
 
-  console.log(registerErr);
-
-
   return (
     <FormWrapper>
       <Title>Sing up</Title>

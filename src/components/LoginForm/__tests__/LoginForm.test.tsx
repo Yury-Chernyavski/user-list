@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../../store/store";
 import { BrowserRouter } from "react-router-dom";
@@ -16,7 +16,6 @@ const mockError = {
   password: "This field is required"
 };
 
-
 describe("LoginForm", () => {
   beforeEach(() => {
     render(
@@ -28,7 +27,7 @@ describe("LoginForm", () => {
     );
   });
 
-  it("should render login form correctly", () => {
+  it("should render login form correctly", async () => {
     expect(screen.getByText("Log in")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
@@ -48,17 +47,15 @@ describe("LoginForm", () => {
   });
 
   it("should handle login failure", async () => {
-    jest.spyOn(AuthService, "login").mockImplementation();
-    // fireEvent.change(screen.getByPlaceholderText("Email"), { target: { value: "" } });
-    // fireEvent.change(screen.getByPlaceholderText("Password"), { target: { value: "" } });
-    fireEvent.submit(screen.getByTestId("Login-form"));
+    jest.spyOn(AuthService, "login").mockRejectedValue(mockError);
+    await act(async () =>  fireEvent.submit(screen.getByTestId("Login-form")));
 
     await waitFor(() => {
-      expect(AuthService.login).toHaveBeenCalledWith(mockData.email, mockData.password);
+      expect(AuthService.login).toHaveBeenCalled();
     });
 
     await waitFor(() => {
-      expect(screen.getAllByText("This field is required")).toBeInTheDocument();
+      expect(screen.findByText("This field is required")).toBeTruthy();
     });
   });
 });

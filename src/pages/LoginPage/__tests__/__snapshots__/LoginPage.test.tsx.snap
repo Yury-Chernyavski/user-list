@@ -6,10 +6,10 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="sc-gswONk kJchHL"
+        class="sc-gswONk eIXFPk"
       >
         <div
-          class="sc-dkrGBB cvJVRC"
+          class="sc-dkrGBB kpOXlR"
         >
           <h1
             class="sc-hLBatu QoYOU"
@@ -19,74 +19,33 @@ Object {
           <form
             data-testid="Login-form"
           >
-            <input
-              class="sc-bcXGCL ibUrKg"
-              placeholder="Email"
-              type="email"
-              value=""
-            />
-            <input
-              class="sc-bcXGCL ibUrKg"
-              placeholder="Password"
-              type="password"
-              value=""
-            />
+            <div
+              class="itemWrapper"
+            >
+              <input
+                class="sc-bcXGCL RceU"
+                placeholder="Email"
+                type="email"
+                value=""
+              />
+            </div>
+            <div
+              class="itemWrapper"
+            >
+              <input
+                class="sc-bcXGCL RceU"
+                placeholder="Password"
+                type="password"
+                value=""
+              />
+            </div>
             <button
               class="sc-eDvShL hKbctB primary"
               type="submit"
             >
               Login
             </button>
-            <p
-              class="sc-jSVask jnHlof"
-            >
-              You 
-              don't
-               have an account? 
-              <a
-                href="/register"
-              >
-                Sing up
-              </a>
-            </p>
           </form>
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="sc-gswONk kJchHL"
-    >
-      <div
-        class="sc-dkrGBB cvJVRC"
-      >
-        <h1
-          class="sc-hLBatu QoYOU"
-        >
-          Log in
-        </h1>
-        <form
-          data-testid="Login-form"
-        >
-          <input
-            class="sc-bcXGCL ibUrKg"
-            placeholder="Email"
-            type="email"
-            value=""
-          />
-          <input
-            class="sc-bcXGCL ibUrKg"
-            placeholder="Password"
-            type="password"
-            value=""
-          />
-          <button
-            class="sc-eDvShL hKbctB primary"
-            type="submit"
-          >
-            Login
-          </button>
           <p
             class="sc-jSVask jnHlof"
           >
@@ -99,7 +58,64 @@ Object {
               Sing up
             </a>
           </p>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-gswONk eIXFPk"
+    >
+      <div
+        class="sc-dkrGBB kpOXlR"
+      >
+        <h1
+          class="sc-hLBatu QoYOU"
+        >
+          Log in
+        </h1>
+        <form
+          data-testid="Login-form"
+        >
+          <div
+            class="itemWrapper"
+          >
+            <input
+              class="sc-bcXGCL RceU"
+              placeholder="Email"
+              type="email"
+              value=""
+            />
+          </div>
+          <div
+            class="itemWrapper"
+          >
+            <input
+              class="sc-bcXGCL RceU"
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+          </div>
+          <button
+            class="sc-eDvShL hKbctB primary"
+            type="submit"
+          >
+            Login
+          </button>
         </form>
+        <p
+          class="sc-jSVask jnHlof"
+        >
+          You 
+          don't
+           have an account? 
+          <a
+            href="/register"
+          >
+            Sing up
+          </a>
+        </p>
       </div>
     </div>
   </div>,

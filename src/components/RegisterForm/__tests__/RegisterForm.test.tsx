@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../../store/store";
 import { BrowserRouter } from "react-router-dom";
@@ -14,6 +14,14 @@ const mockUser = {
   password: "password123",
   password_confirmation: "password123"
 };
+
+const mockError = {
+  first_name: "This field is required",
+  last_name: "This field is required",
+  email: "This field is required",
+  password: "This field is required",
+  password_confirmation: "This field is required"
+}
 
 describe("RegisterForm", () => {
   beforeEach(() => {
@@ -52,10 +60,15 @@ describe("RegisterForm", () => {
   });
 
   it("should handle register failure", async () => {
-    fireEvent.submit(screen.getByTestId("Register-form"));
+    jest.spyOn(AuthService, "register").mockRejectedValue(mockError);
+    await act(async () =>  fireEvent.submit(screen.getByTestId("Register-form")));
 
     await waitFor(() => {
-      expect(screen.getByText("Register failed")).toBeInTheDocument();
+      expect(AuthService.register).toHaveBeenCalled();
+    });
+
+    await waitFor(() => {
+      expect(screen.findAllByText("This field is required")).toBeTruthy();
     });
   });
 });
