@@ -4,6 +4,7 @@ import { Text } from "../Text/Text";
 
 export const ErrorMessage = styled(Text)`
   color: ${theme.colors.primary};
-  margin: 5px 0 15px;
+  font-size: 14px;
+  margin: 2px 0 5px;
   text-align: center;
 `

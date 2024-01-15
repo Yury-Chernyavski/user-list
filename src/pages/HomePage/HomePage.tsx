@@ -6,7 +6,6 @@ import { getAllUsers } from "../../store/selectors/getAllUsers";
 import { fetchUsers } from "../../store/reducers/allUsersSlice";
 import { setUser } from "../../store/reducers/userSlice";
 import { getUserData } from "../../store/selectors/getUserData";
-import { useLocation } from "react-router-dom";
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +20,7 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     dispatch(fetchUsers({ per_page: 20 }));
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

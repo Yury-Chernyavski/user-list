@@ -6,7 +6,7 @@ interface IFromWrapper {
 }
 
 export const FormWrapper = styled.div<IFromWrapper>`
-  width: 45%;
+  width: 40%;
   min-width: 400px;
   min-height: auto;
   height: auto;
@@ -17,7 +17,7 @@ export const FormWrapper = styled.div<IFromWrapper>`
   align-items: center;
   justify-content: center;
   padding: 45px 30px;
-  margin: 20px 0;
+  margin: 40px 0;
   position: relative;
   
   
