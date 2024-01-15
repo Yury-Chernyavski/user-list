@@ -48,7 +48,8 @@
       "/helpers/",
       "/router/",
       "/models/",
-      "/services/"
+      "/services/",
+      "/hooks/"
     ]
   },
   "devDependencies": {
